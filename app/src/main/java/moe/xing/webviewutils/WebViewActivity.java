@@ -17,7 +17,6 @@ import java.util.List;
 
 import moe.xing.baseutils.network.cookies.MyCookiesManager;
 import moe.xing.baseutils.utils.LogHelper;
-import moe.xing.baseutils.view.BaseActivity;
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 
@@ -36,8 +35,8 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(moe.xing.baseutils.R.layout.activity_webview);
-        mWebView = (WebView) findViewById(moe.xing.baseutils.R.id.web_view);
+        setContentView(R.layout.activity_webview);
+        mWebView = (WebView) findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 
