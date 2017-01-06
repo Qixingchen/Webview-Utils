@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.CookieManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -39,6 +40,7 @@ public class WebViewActivity extends AppCompatActivity {
         mWebView = (WebView) findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        mWebView.getSettings().setDomStorageEnabled(true);
 
         Intent intent = getIntent();
         String uri = intent.getStringExtra(URL_LOAD);
@@ -71,7 +73,17 @@ public class WebViewActivity extends AppCompatActivity {
                 if (actionBar != null) {
                     actionBar.setTitle(view.getTitle());
                 }
+            }
+        });
+        mWebView.setWebChromeClient(new WebChromeClient() {
 
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                ActionBar actionBar = getSupportActionBar();
+                if (actionBar != null) {
+                    actionBar.setTitle(title);
+                }
             }
         });
     }
