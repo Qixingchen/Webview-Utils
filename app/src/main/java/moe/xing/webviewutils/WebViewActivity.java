@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.webkit.WebViewClient;
 import java.net.URI;
 import java.util.List;
 
+import moe.xing.baseutils.Init;
 import moe.xing.baseutils.network.cookies.MyCookiesManager;
 import moe.xing.baseutils.utils.LogHelper;
 import okhttp3.Cookie;
@@ -34,6 +36,17 @@ public class WebViewActivity extends AppCompatActivity {
 
     private WebView mWebView;
 
+    /**
+     * 获取 UA
+     */
+    @NonNull
+    private static String UA() {
+        String BuildVersion = Init.getVersionName();
+        String rootBuildVersion = BuildVersion.substring(0, BuildVersion.lastIndexOf("."));
+        return " " + Init.getUaName() + "/" + rootBuildVersion +
+                "(Android;Build 1;Version " + BuildVersion + ";)";
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +56,9 @@ public class WebViewActivity extends AppCompatActivity {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.getSettings().setDomStorageEnabled(true);
+
+        String ua = mWebView.getSettings().getUserAgentString();
+        mWebView.getSettings().setUserAgentString(ua + UA());
 
         Intent intent = getIntent();
         String uri = intent.getStringExtra(URL_LOAD);
