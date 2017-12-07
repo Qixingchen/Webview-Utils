@@ -15,12 +15,14 @@ import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import java.net.URI;
 import java.util.List;
 
 import moe.xing.baseutils.Init;
 import moe.xing.baseutils.network.cookies.MyCookiesManager;
+import moe.xing.baseutils.utils.IntentUtils;
 import moe.xing.baseutils.utils.LogHelper;
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
@@ -52,7 +54,7 @@ public class WebViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
-        mWebView = (WebView) findViewById(R.id.web_view);
+        mWebView = findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.getSettings().setDomStorageEnabled(true);
@@ -91,7 +93,9 @@ public class WebViewActivity extends AppCompatActivity {
                     return false;
                 }
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
+                if (!IntentUtils.startIntent(intent)) {
+                    Toast.makeText(WebViewActivity.this, android.R.string.httpErrorBadUrl, Toast.LENGTH_LONG).show();
+                }
                 return true;
             }
 
