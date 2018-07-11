@@ -57,7 +57,7 @@ public class ChromeCustomTabHelper {
     }
 
     public static ChromeCustomTabHelper with(Context context) {
-       ChromeCustomTabHelper instance = new ChromeCustomTabHelper();
+        ChromeCustomTabHelper instance = new ChromeCustomTabHelper();
         instance.init(context);
         return instance;
     }
@@ -96,7 +96,7 @@ public class ChromeCustomTabHelper {
         builder.setShowTitle(true);
         builder.setToolbarColor(ContextCompat.getColor(context, toolbar));
         if (share) builder.addDefaultShareMenuItem();
-        builder.build().launchUrl((Activity) context, Uri.parse(url));
+        builder.build().launchUrl(context, Uri.parse(url));
     }
 
     /**
