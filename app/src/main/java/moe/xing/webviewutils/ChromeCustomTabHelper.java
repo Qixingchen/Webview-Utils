@@ -1,6 +1,5 @@
 package moe.xing.webviewutils;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +12,9 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
+import android.widget.Toast;
+
+import moe.xing.baseutils.utils.IntentUtils;
 
 
 /**
@@ -53,6 +55,20 @@ public class ChromeCustomTabHelper {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
             context.startActivity(intent);
+        }
+    }
+
+    /**
+     * 打开Url 优先使用 CCT 不可用则使用系统浏览器
+     */
+    public static void openUrlCCTOrSystem(Context context, String url) {
+        if (isOK(context)) {
+            with(context).show(url);
+        } else {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            if (!IntentUtils.startIntent(browserIntent)) {
+                Toast.makeText(context, "没有找到浏览器,建议您安装 Chrome 后重试", Toast.LENGTH_LONG).show();
+            }
         }
     }
 

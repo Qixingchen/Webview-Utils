@@ -30,7 +30,7 @@ import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 
 /**
- * Created by Hehanbo on 2016/6/2 0002.
+ * Created by Qixingchen on 2016/6/2 0002.
  * <p>
  * webview
  */
@@ -123,6 +123,10 @@ public class WebViewActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public WebView getWebView() {
+        return mWebView;
     }
 
     @Override
